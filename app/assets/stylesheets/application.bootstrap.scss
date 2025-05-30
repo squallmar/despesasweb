@@ -1,0 +1,10 @@
+// Customize Bootstrap variables
+$primary: #4e2a8e;
+$enable-rounded: false;
+
+// Import Bootstrap
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/bootstrap";

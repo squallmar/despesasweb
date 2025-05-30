@@ -1,0 +1,42 @@
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1>Minhas Despesas</h1>
+      <%= link_to "Nova Despesa", new_expense_path, class: "btn btn-primary" %>
+    </div>
+
+    <%= render 'month_filter' %>
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @expenses.each do |expense| %>
+            <tr>
+              <td><%= expense.description %></td>
+              <td><%= number_to_currency(expense.amount) %></td>
+              <td><%= l(expense.date, format: :short) %></td>
+              <td><span class="badge bg-primary"><%= expense.category %></span></td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <%= link_to "Editar", edit_expense_path(expense), class: "btn btn-outline-secondary" %>
+                  <%= link_to "Excluir", expense, method: :delete, 
+                      data: { confirm: "Tem certeza?" }, 
+                      class: "btn btn-outline-danger" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

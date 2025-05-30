@@ -1,0 +1,21 @@
+<%= form_with url: expenses_path, method: :get, class: "mb-4" do |f| %>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3">
+      <%= f.label :month, "Mês", class: "form-label" %>
+      <%= f.select :month, 
+          (1..12).map { |m| [l(Date.new(2000, m, 1), format: "%B"), m] }, 
+          { selected: @selected_month }, 
+          class: "form-select" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :year, "Ano", class: "form-label" %>
+      <%= f.select :year, 
+          (Date.current.year-5..Date.current.year).to_a.reverse, 
+          { selected: @selected_year }, 
+          class: "form-select" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "Filtrar", class: "btn btn-primary w-100" %>
+    </div>
+  </div>
+<% end %>

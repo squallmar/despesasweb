@@ -1,0 +1,67 @@
+pt-BR:
+  activerecord:
+    models:
+      expense: "Despesa"
+    attributes:
+      expense:
+        description: "Descrição"
+        amount: "Valor"
+        date: "Data"
+        category: "Categoria"
+        month: "Mês"
+        year: "Ano"
+        user: "Usuário"
+    errors:
+      models:
+        expense:
+          attributes:
+            description:
+              blank: "não pode ficar em branco"
+            amount:
+              blank: "não pode ficar em branco"
+              not_a_number: "deve ser um número"
+              greater_than: "deve ser maior que zero"
+            date:
+              blank: "não pode ficar em branco"
+            category:
+              blank: "não pode ficar em branco"
+
+  expenses:
+    index:
+      title: "Minhas Despesas"
+      new_expense: "Nova Despesa"
+    show:
+      title: "Detalhes da Despesa"
+      back: "Voltar"
+      edit: "Editar"
+    edit:
+      title: "Editar Despesa"
+    new:
+      title: "Nova Despesa"
+    form:
+      submit: "Salvar"
+      cancel: "Cancelar"
+    flash:
+      create:
+        notice: "Despesa criada com sucesso!"
+      update:
+        notice: "Despesa atualizada com sucesso!"
+      destroy:
+        notice: "Despesa removida com sucesso!"
+        alert: "Não foi possível remover a despesa."
+
+  categories:
+    alimentação: "Alimentação"
+    transporte: "Transporte"
+    moradia: "Moradia"
+    lazer: "Lazer"
+    saúde: "Saúde"
+    educação: "Educação"
+    outros: "Outros"
+
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d/%m"
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
