@@ -15,10 +15,11 @@
     <%= form.text_field :description, class: "form-control", required: true %>
   </div>
 
-  <div class="form-check mb-3">
-    <%= form.check_box :recurring, class: "form-check-input" %>
-    <%= form.label :recurring, "Despesa recorrente para os próximos meses?", class: "form-check-label" %>
+  <div class="form-check form-switch mb-4">
+    <%= form.check_box :recurring, class: "form-check-input fs-5", role: "switch" %>
+    <%= form.label :recurring, "🔁 Despesa recorrente para os próximos meses?", class: "form-check-label fw-semibold fs-6 ms-2" %>
   </div>
+
 
   <div class="mb-3">
     <%= form.label :amount, "Valor", class: "form-label" %>
@@ -46,9 +47,9 @@
         class: "form-select", required: true %>
   </div>
 
-  <div class="form-check mb-4">
-    <%= form.check_box :paid, class: "form-check-input" %>
-    <%= form.label :paid, "Pago?", class: "form-check-label" %>
+  <div class="form-check form-switch mb-4">
+    <%= form.check_box :paid, class: "form-check-input fs-5", role: "switch" %>
+    <%= form.label :paid, "✅ Pago?", class: "form-check-label fw-semibold fs-6 ms-2" %>
   </div>
 
   <div class="d-grid">

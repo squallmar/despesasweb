@@ -78,22 +78,32 @@
                 <% end %>
               </td>
               <td class="d-none d-md-table-cell">
-                <span class="badge bg-primary"><%= expense.category %></span>
+                <span class="badge rounded-pill bg-primary text-light px-3 py-2 fs-8">
+                  <%= expense.category %>
+                </span>
               </td>
+
               <td>
                 <%= form_with(model: expense, url: toggle_paid_expense_path(expense), method: :patch, local: true) do |f| %>
-                  <%= f.check_box :paid, checked: expense.paid, onchange: 'this.form.submit();', class: "form-check-input" %>
+                  <div class="form-check form-switch">
+                    <%= f.check_box :paid, checked: expense.paid, onchange: 'this.form.submit();', class: "form-check-input fs-5" %>
+                  </div>
                 <% end %>
               </td>
               <td>
-                <div class="btn-group btn-group-sm" role="group">
-                  <%= link_to "✏️ Editar", edit_expense_path(expense), class: "btn btn-outline-primary me-2" %>
-                  <%= button_to "🗑️ Excluir", expense_path(expense),
-                      method: :delete,
-                      data: { turbo_confirm: "Tem certeza que deseja excluir esta despesa?" },
-                      class: "btn btn-outline-danger" %>
-                </div>
-              </td>
+              <div class="d-flex gap-2 flex-wrap align-items-center">
+                  <%= link_to edit_expense_path(expense), class: "btn btn-outline-primary d-flex align-items-center" do %>
+                      ✏️ <span class="ms-1 d-none d-md-inline">Editar</span>
+                    <% end %>
+
+                  <%= button_to expense_path(expense),
+                    method: :delete,
+                    data: { turbo_confirm: "Tem certeza que deseja excluir esta despesa?" },
+                    class: "btn btn-outline-danger d-flex align-items-center" do %>
+                  🗑️ <span class="ms-1 d-none d-md-inline">Excluir</span>
+                <% end %>
+              </div>
+            </td>
             </tr>
           <% end %>
         </tbody>
