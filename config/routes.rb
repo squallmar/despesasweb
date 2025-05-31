@@ -4,10 +4,14 @@ Rails.application.routes.draw do
   resources :expenses do
     member do
       patch :toggle_paid
+      get 'confirm_destroy'
+      delete 'destroy_all_recurrences'
+      
     end
 
     collection do
       get :report
+      delete 'clear_all', to: 'expenses#clear_all', as: 'clear_all'
     end
   end
 

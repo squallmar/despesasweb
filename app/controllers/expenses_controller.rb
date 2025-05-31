@@ -60,7 +60,10 @@ class ExpensesController < ApplicationController
     send_data pdf.render, filename: "relatorio_despesas.pdf", type: "application/pdf"
   end
 
-
+  def clear_all
+    current_user.expenses.destroy_all
+    redirect_to expenses_path, notice: "Todas as despesas foram excluídas com sucesso."
+  end
 
   def new
     @expense = current_user.expenses.build(date: Date.current)
@@ -83,6 +86,12 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def destroy_all_recurrences
+    expense = Expense.find(params[:id])
+    Expense.where(recurring_group: expense.recurring_group).destroy_all
+    redirect_to expenses_path, notice: "Todas as despesas recorrentes foram excluídas com sucesso."
+  end
+
   def update
     respond_to do |format|
       if @expense.update(expense_params)
@@ -96,12 +105,16 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
-    @expense = current_user.expenses.find(params[:id])
-    @expense.destroy
-    redirect_to expenses_path, notice: "Despesa excluída com sucesso."
+    @expense = Expense.find(params[:id])
+
+    if @expense.recurring? && Expense.where(recurring_group: @expense.recurring_group).where("date > ?", @expense.date).exists?
+      # Redireciona para a view de confirmação personalizada
+      redirect_to confirm_destroy_expense_path(@expense)
+    else
+      @expense.destroy
+      redirect_to expenses_path, notice: "Despesa excluída com sucesso."
+    end
   end
-
-
 
   private
 

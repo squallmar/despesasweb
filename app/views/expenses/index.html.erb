@@ -1,11 +1,37 @@
 <div class="card shadow-sm">
   <div class="card-body">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
       <h1 class="h4 mb-0">Minhas Despesas</h1>
-      <%= link_to "Nova Despesa", new_expense_path, class: "btn btn-primary" %>
+      <div class="d-flex flex-wrap gap-2">
+        <%= link_to "📄 Baixar PDF", report_expenses_path(month_date: Date.today), class: "btn btn-outline-success" %>
+        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#configModal">
+          ⚙️ Configurações
+        </button>
+        <%= link_to "➕ Nova Despesa", new_expense_path, class: "btn btn-primary" %>
+      </div>
     </div>
 
-    <%= link_to "Baixar PDF", report_expenses_path(month_date: Date.today), class: "btn btn-outline-success mb-3" %>
+    <!-- Modal de Configuração -->
+    <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="configModalLabel">Configurações de Despesas</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <p>Tem certeza que deseja excluir todas as despesas do usuário?</p>
+          </div>
+          <div class="modal-footer">
+            <%= button_to "🧹 Limpar todas as despesas", clear_all_expenses_path,
+                          method: :delete,
+                          class: "btn btn-danger",
+                          data: { turbo_confirm: "Tem certeza mesmo? Esta ação não poderá ser desfeita!" } %>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <%= render 'filters' %>
     <%= render 'month_filter' %>
@@ -34,8 +60,12 @@
           <% @expenses.each do |expense| %>
             <tr>
               <td><%= expense.description %></td>
-              <td class="d-none d-md-table-cell"><%= number_to_currency(expense.amount, unit: "R$", separator: ",", delimiter: ".") %></td>
-              <td class="d-none d-lg-table-cell"><%= l(expense.date, format: :short) %></td>
+              <td class="d-none d-md-table-cell">
+                <%= number_to_currency(expense.amount, unit: "R$", separator: ",", delimiter: ".") %>
+              </td>
+              <td class="d-none d-lg-table-cell">
+                <%= l(expense.date, format: :short) %>
+              </td>
               <td>
                 <% if expense.paid %>
                   <span class="badge bg-success"><%= l(expense.due_date, format: :short) %></span>
@@ -57,11 +87,11 @@
               </td>
               <td>
                 <div class="btn-group btn-group-sm" role="group">
-                  <%= link_to "✏️ Editar despesa", edit_expense_path(expense), class: "btn btn-outline-primary me-2" %>
+                  <%= link_to "✏️ Editar", edit_expense_path(expense), class: "btn btn-outline-primary me-2" %>
                   <%= button_to "🗑️ Excluir", expense_path(expense),
-                    method: :delete,
-                    data: { turbo_confirm: "Tem certeza que deseja excluir esta despesa?" },
-                    class: "btn btn-outline-danger" %>
+                      method: :delete,
+                      data: { turbo_confirm: "Tem certeza que deseja excluir esta despesa?" },
+                      class: "btn btn-outline-danger" %>
                 </div>
               </td>
             </tr>

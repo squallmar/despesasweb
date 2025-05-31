@@ -1,0 +1,10 @@
+<h2>Excluir despesa recorrente</h2>
+<p>Essa despesa tem lançamentos futuros. Deseja excluir apenas este mês ou todos os meses?</p>
+
+<div class="d-flex gap-3">
+  <%= button_to "❌ Somente este mês", expense_path(@expense), method: :delete, class: "btn btn-warning" %>
+
+  <%= button_to "🗑️ Todos os meses", destroy_all_recurrences_expense_path(@expense), method: :delete, class: "btn btn-danger" %>
+
+  <%= link_to "Cancelar", expenses_path, class: "btn btn-secondary" %>
+</div>
