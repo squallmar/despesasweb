@@ -1523,3 +1523,8 @@ pt-BR:
     registrations:
       user:
         updated: "Sua conta foi atualizada com sucesso."
+  
+    passwords:
+      no_token: "Token inválido ou expirado."
+      user:
+        no_token: "Token inválido ou expirado."

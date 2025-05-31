@@ -4,4 +4,32 @@
   </div>
 <% end %>
 
+<h1>Detalhes da Despesa</h1>
 
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>Descrição</th>
+      <td><%= @expense.description %></td>
+    </tr>
+    <tr>
+      <th>Valor</th>
+      <td>R$ <%= number_to_currency(@expense.amount, unit: "", separator: ",", delimiter: ".") %></td>
+    </tr>
+    <tr>
+      <th>Data da despesa</th>
+      <td><%= @expense.date.strftime("%d/%m/%Y") if @expense.date %></td>
+    </tr>
+    <tr>
+      <th>Data de vencimento</th>
+      <td><%= @expense.due_date.strftime("%d/%m/%Y") if @expense.due_date %></td>
+    </tr>
+    <tr>
+      <th>Categoria</th>
+      <td><%= @expense.category %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to "Editar", edit_expense_path(@expense), class: "btn btn-primary" %>
+<%= link_to "Voltar", expenses_path, class: "btn btn-secondary" %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "welcome/index"
   devise_for :users
 
   resources :expenses do
@@ -19,5 +20,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Raiz do sistema
-  root to: 'expenses#index'
+  root to: 'welcome#index'
 end

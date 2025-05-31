@@ -72,6 +72,7 @@ gem 'prawn'
 gem 'prawn-table'
 
 
+gem 'devise-i18n'
 
 
 
