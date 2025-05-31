@@ -10,6 +10,9 @@
       <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item">
+            <%= link_to "Editar Perfil", edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
             <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "nav-link btn btn-link" %>
           </li>
         <% else %>

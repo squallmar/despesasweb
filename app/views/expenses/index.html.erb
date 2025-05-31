@@ -1,20 +1,32 @@
 <div class="card shadow-sm">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>Minhas Despesas</h1>
+      <h1 class="h4 mb-0">Minhas Despesas</h1>
       <%= link_to "Nova Despesa", new_expense_path, class: "btn btn-primary" %>
     </div>
 
+    <%= link_to "Baixar PDF", report_expenses_path(month_date: Date.today), class: "btn btn-outline-success mb-3" %>
+
+    <%= render 'filters' %>
     <%= render 'month_filter' %>
 
+    <% if flash[:alert] %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <%= flash[:alert] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+      </div>
+    <% end %>
+
     <div class="table-responsive">
-      <table class="table table-hover">
+      <table class="table table-hover align-middle">
         <thead class="table-light">
           <tr>
             <th>Descrição</th>
-            <th>Valor</th>
-            <th>Data</th>
-            <th>Categoria</th>
+            <th class="d-none d-md-table-cell">Valor</th>
+            <th class="d-none d-lg-table-cell">Data de Cadastro</th>
+            <th>Vencimento</th>
+            <th class="d-none d-md-table-cell">Categoria</th>
+            <th>Paga</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -22,15 +34,34 @@
           <% @expenses.each do |expense| %>
             <tr>
               <td><%= expense.description %></td>
-              <td><%= number_to_currency(expense.amount) %></td>
-              <td><%= l(expense.date, format: :short) %></td>
-              <td><span class="badge bg-primary"><%= expense.category %></span></td>
+              <td class="d-none d-md-table-cell"><%= number_to_currency(expense.amount, unit: "R$", separator: ",", delimiter: ".") %></td>
+              <td class="d-none d-lg-table-cell"><%= l(expense.date, format: :short) %></td>
               <td>
-                <div class="btn-group btn-group-sm">
-                  <%= link_to "Editar", edit_expense_path(expense), class: "btn btn-outline-secondary" %>
-                  <%= link_to "Excluir", expense, method: :delete, 
-                      data: { confirm: "Tem certeza?" }, 
-                      class: "btn btn-outline-danger" %>
+                <% if expense.paid %>
+                  <span class="badge bg-success"><%= l(expense.due_date, format: :short) %></span>
+                <% elsif expense.due_date == Date.today %>
+                  <span class="badge bg-danger"><%= l(expense.due_date, format: :short) %></span>
+                <% elsif expense.due_date && expense.due_date > Date.today %>
+                  <span class="badge bg-info text-dark"><%= l(expense.due_date, format: :short) %></span>
+                <% else %>
+                  <span class="badge bg-secondary">-</span>
+                <% end %>
+              </td>
+              <td class="d-none d-md-table-cell">
+                <span class="badge bg-primary"><%= expense.category %></span>
+              </td>
+              <td>
+                <%= form_with(model: expense, url: toggle_paid_expense_path(expense), method: :patch, local: true) do |f| %>
+                  <%= f.check_box :paid, checked: expense.paid, onchange: 'this.form.submit();', class: "form-check-input" %>
+                <% end %>
+              </td>
+              <td>
+                <div class="btn-group btn-group-sm" role="group">
+                  <%= link_to "✏️ Editar despesa", edit_expense_path(expense), class: "btn btn-outline-primary me-2" %>
+                  <%= button_to "🗑️ Excluir", expense_path(expense),
+                    method: :delete,
+                    data: { turbo_confirm: "Tem certeza que deseja excluir esta despesa?" },
+                    class: "btn btn-outline-danger" %>
                 </div>
               </td>
             </tr>

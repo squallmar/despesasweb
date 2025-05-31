@@ -1,37 +1,14 @@
-<div id="<%= dom_id expense %>">
-  <p>
-    <strong>Description:</strong>
-    <%= expense.description %>
-  </p>
+<div id="<%= dom_id expense %>" class="card p-3 mb-3 shadow-sm">
+  <h5 class="card-title mb-3">Detalhes da Despesa</h5>
 
-  <p>
-    <strong>Amount:</strong>
-    <%= expense.amount %>
-  </p>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong>Descrição:</strong> <%= expense.description %></li>
+    <li class="list-group-item"><strong>Valor:</strong> R$ <%= number_to_currency(expense.amount, unit: "", separator: ",", delimiter: ".") %></li>
+    <li class="list-group-item"><strong>Data:</strong> <%= l(expense.date) %></li>
+    <li class="list-group-item"><strong>Categoria:</strong> <%= expense.category %></li>
+    <li class="list-group-item"><strong>Mês:</strong> <%= expense.month %></li>
+    <li class="list-group-item"><strong>Ano:</strong> <%= expense.year %></li>
+    <li class="list-group-item"><strong>Criada por:</strong> <%= expense.user.name %></li>
 
-  <p>
-    <strong>Date:</strong>
-    <%= expense.date %>
-  </p>
-
-  <p>
-    <strong>Category:</strong>
-    <%= expense.category %>
-  </p>
-
-  <p>
-    <strong>Month:</strong>
-    <%= expense.month %>
-  </p>
-
-  <p>
-    <strong>Year:</strong>
-    <%= expense.year %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= expense.user_id %>
-  </p>
-
+  </ul>
 </div>

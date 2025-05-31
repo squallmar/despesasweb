@@ -1,0 +1,13 @@
+<h2>Olá!</h2>
+
+<p>A seguinte despesa está vencendo hoje:</p>
+
+<ul>
+  <li><strong>Descrição:</strong> <%= @expense.description %></li>
+  <li><strong>Valor:</strong> <%= number_to_currency(@expense.amount) %></li>
+  <li><strong>Data de Vencimento:</strong> <%= l(@expense.due_date, format: :long) %></li>
+</ul>
+
+<p>Por favor, verifique o sistema para mais detalhes.</p>
+
+<p>Obrigado,<br>Seu sistema de controle de despesas</p>

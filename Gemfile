@@ -65,5 +65,13 @@ end
 gem 'cssbundling-rails'
 gem 'bootstrap', '~> 5.3', '>= 5.3.5'
 gem 'devise'
+gem 'whenever', require: false
+gem 'prawn'
+gem 'sidekiq'
+gem 'prawn'
+gem 'prawn-table'
+
+
+
 
 

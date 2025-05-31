@@ -1,0 +1,25 @@
+<%= form_with url: expenses_path, method: :get, local: true, class: "row g-3 mb-4" do |f| %>
+  <div class="col-md-3">
+    <%= f.label :category, "Categoria" %>
+    <%= f.select :category, Expense.distinct.pluck(:category), { include_blank: "Todas" }, class: "form-select" %>
+  </div>
+
+  <div class="col-md-2">
+    <%= f.label :paid, "Status" %>
+    <%= f.select :paid, [["Todas", ""], ["Pagas", "true"], ["Em Aberto", "false"]], {}, class: "form-select" %>
+  </div>
+
+  <div class="col-md-2">
+    <%= f.label :min_value, "Valor Mínimo" %>
+    <%= f.number_field :min_value, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="col-md-2">
+    <%= f.label :max_value, "Valor Máximo" %>
+    <%= f.number_field :max_value, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="col-md-3 d-flex align-items-end">
+    <%= f.submit "Filtrar", class: "btn btn-outline-primary w-100" %>
+  </div>
+<% end %>
