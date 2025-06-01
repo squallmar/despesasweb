@@ -1,13 +1,13 @@
 <div class="container">
   <div class="text-center mb-5">
-    <h1 class="display-4">Meu Dashboard Financeiro</h1>
+    <h1 class="display-5">Meu Dashboard Financeiro</h1>
     <p class="lead">Visão geral das suas despesas.</p>
   </div>
 
-  <div class="row mb-5">
+  <div class="row mb-4">
     <div class="col-md-6 offset-md-3"> <div class="card shadow-sm border-0">
         <div class="card-body text-center">
-          <h2 class="card-title text-primary mb-3">Total de Despesas</h2>
+          <h2 class="card-title text-primary mb-2">Total de Despesas</h2>
           <p class="card-text display-6 fw-bold text-danger">
             <%= number_to_currency(@total_expenses, unit: "R$", separator: ",", delimiter: ".") %>
           </p>
@@ -72,6 +72,6 @@
   <hr class="my-5"> <div class="text-center mb-4">
     <h2 class="mb-4">Ações Rápidas</h2>
     <%= link_to 'Adicionar Nova Despesa', new_expense_path, class: 'btn btn-success btn-lg me-3' %>
-    <%= link_to 'Gerenciar Categorias', '#', class: 'btn btn-info btn-lg' %>
+    <%= link_to 'Gerenciar Categorias', expenses_path, class: 'btn btn-info btn-lg' %>
     </div>
 </div>
