@@ -11,28 +11,6 @@
       </div>
     </div>
 
-    <!-- Modal de Configuração -->
-    <div class="modal fade" id="configModal" tabindex="-1" aria-labelledby="configModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="configModalLabel">Configurações de Despesas</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-          </div>
-          <div class="modal-body">
-            <p>Tem certeza que deseja excluir todas as despesas do usuário?</p>
-          </div>
-          <div class="modal-footer">
-            <%= button_to "🧹 Limpar todas as despesas", clear_all_expenses_path,
-                          method: :delete,
-                          class: "btn btn-danger",
-                          data: { turbo_confirm: "Tem certeza mesmo? Esta ação não poderá ser desfeita!" } %>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <%= render 'filters' %>
     <%= render 'month_filter' %>
 
