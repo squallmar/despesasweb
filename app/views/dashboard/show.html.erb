@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="text-center mb-5">
+    <h1 class="display-4">Meu Dashboard Financeiro</h1>
+    <p class="lead">Visão geral das suas despesas.</p>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col-md-6 offset-md-3"> <div class="card shadow-sm border-0">
+        <div class="card-body text-center">
+          <h2 class="card-title text-primary mb-3">Total de Despesas</h2>
+          <p class="card-text display-6 fw-bold text-danger">
+            <%= number_to_currency(@total_expenses, unit: "R$", separator: ",", delimiter: ".") %>
+          </p>
+          <p class="text-muted">Despesas acumuladas até agora.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h3 class="card-title text-dark mb-3">Últimas Despesas</h3>
+          <% if @recent_expenses.any? %>
+            <ul class="list-group list-group-flush">
+              <% @recent_expenses.each do |expense| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <small class="text-muted"><%= l expense.date, format: :short %></small><br>
+                    <%= expense.description %>
+                  </div>
+                  <span class="badge bg-danger rounded-pill">
+                    <%= number_to_currency(expense.amount, unit: "R$", separator: ",", delimiter: ".") %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+            <div class="text-center mt-3">
+              <%= link_to 'Ver Todas as Despesas', list_expenses_expenses_path, class: 'btn btn-outline-primary btn-sm' %>
+            </div>
+          <% else %>
+            <p class="text-muted text-center">Nenhuma despesa recente para exibir.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h3 class="card-title text-dark mb-3">Despesas por Categoria</h3>
+          <% if @expenses_by_category.any? %>
+            <ul class="list-group list-group-flush">
+              <% @expenses_by_category.each do |category_name, total| %>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= category_name.present? ? category_name : 'Sem Categoria' %>
+                  <span class="badge bg-secondary rounded-pill">
+                    <%= number_to_currency(total, unit: "R$", separator: ",", delimiter: ".") %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-muted text-center">Nenhuma despesa categorizada ainda.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5"> <div class="text-center mb-4">
+    <h2 class="mb-4">Ações Rápidas</h2>
+    <%= link_to 'Adicionar Nova Despesa', new_expense_path, class: 'btn btn-success btn-lg me-3' %>
+    <%= link_to 'Gerenciar Categorias', '#', class: 'btn btn-info btn-lg' %>
+    </div>
+</div>

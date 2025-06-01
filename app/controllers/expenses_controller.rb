@@ -116,6 +116,11 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def list_expenses
+    @expense = Expense.all # para buscar todas as despesas que o usuario tera no cadastro.
+    @expenses = Expense.order(date: :desc).page(params[:page])
+  end
+
   private
 
   def set_expense
